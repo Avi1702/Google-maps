@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+
+
+    <title>Google Maps</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        #map{
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+</head>
+<body>
+    <div id='map'></div>
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXZpbmFzaHJveSIsImEiOiJjbDh5ZzlobXcwZ2ZkM3Bwbnp0eGFja2ZpIn0.VWNL_p1_K8WowV_vSIQjsA';
+
+navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{
+    enableHighAccuracy:true
+})
+
+function successLocation(position){
+    setMap([position.coords.longitude,position.coords.latitude])
+}
+
+function errorLocation(){
+
+}
+
+// Set marker options.
+
+
+function setMap(center){
+
+    const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center:center,
+    zoom:15
+  });
+
+  var directions = new MapboxDirections({
+  accessToken: 'pk.eyJ1IjoiYXZpbmFzaHJveSIsImEiOiJjbDh5ZzlobXcwZ2ZkM3Bwbnp0eGFja2ZpIn0.VWNL_p1_K8WowV_vSIQjsA'
+  });
+
+ map.addControl(directions, 'top-left');
+
+//    const nav=new mapboxg1.NavigationControl()
+//    map.addControl(nav)
+
+  const marker = new mapboxgl.Marker({
+    color: "red",
+    draggable: true
+}).setLngLat(center)
+    .addTo(map);
+
+}
+  
+
+</script>
+
+</body>
+</html>
